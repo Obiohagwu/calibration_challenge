@@ -4,6 +4,10 @@ import torch
 import time 
 import os
 
+# To get video pop-up
+import sys
+import sdl2.ext
+sdl2.ext.init()
 
 
 
@@ -21,9 +25,12 @@ H= 1080//2
 
 def process_frame(img):
     img = cv2.resize(img,(W,H))
+    log_events = sdl2.ext.get_events()
     cv2.imshow('live-video-feed', img)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
     print(img.shape)
+    print(img)
+    window.refresh()
 
 
 def test():
