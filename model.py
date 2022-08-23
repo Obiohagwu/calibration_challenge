@@ -9,11 +9,8 @@ import sys
 import sdl2.ext
 sdl2.ext.init()
 
-
-
 # Let's try some stuff
 # This calibratoin challenge seem to me like a canonical SLAM type problem
-
 cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 
 
@@ -21,7 +18,8 @@ cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 W = 1920//2
 H= 1080//2
 
- 
+window = sdl2.ext.Window("SLAM-FEED", size=(W, H))
+window.show() 
 
 def process_frame(img):
     img = cv2.resize(img,(W,H))
@@ -29,7 +27,7 @@ def process_frame(img):
     cv2.imshow('live-video-feed', img)
     #cv2.waitKey(0)
     print(img.shape)
-    print(img)
+    #print(img)
     window.refresh()
 
 
