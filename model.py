@@ -14,6 +14,7 @@ import os
 #cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 
 from feed_display import FeedDisplay
+from featureExtraction import FeatureExtractor
 
 ## Have to 
 W = 1920//2
@@ -24,8 +25,15 @@ display = FeedDisplay(W,H)
 #window = sdl2.ext.Window("SLAM-FEED", size=(W, H), position=(-500,500))
 #window.show() 
 
+feature_extractor = FeatureExtractor()
+
 def process_frame(img):
     img = cv2.resize(img,(W,H))
+    kp = feature_extractor.extract_feature(img)
+
+    for p in kp:
+        u,v = map(lambda x: int(round(x)), p.pt)
+        cv2.circle(img, (u,v), color=(0, 255, 0), radius=3)
     display.make(img)
 #    log_events = sdl2.ext.get_events()
 #    for event in log_events:
@@ -46,7 +54,7 @@ def test():
     print("Testing")
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("unlabeled/6.hevc.mp4")
+    cap = cv2.VideoCapture("unlabeled/5.hevc.mp4")
     
     i=0
     while cap.isOpened():
