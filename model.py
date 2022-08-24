@@ -30,10 +30,13 @@ feature_extractor = FeatureExtractor()
 def process_frame(img):
     img = cv2.resize(img,(W,H))
     kp = feature_extractor.extract_feature(img)
-
     for p in kp:
-        u,v = map(lambda x: int(round(x)), p.pt)
-        cv2.circle(img, (u,v), color=(0, 255, 0), radius=3)
+        u,v = map(lambda x: int(round(x)), p[0])
+        cv2.circle(img, (u,v), color=(0,255,0), radius=3)
+
+
+
+   
     display.make(img)
 #    log_events = sdl2.ext.get_events()
 #    for event in log_events:
@@ -54,7 +57,7 @@ def test():
     print("Testing")
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("unlabeled/5.hevc.mp4")
+    cap = cv2.VideoCapture("unlabeled/8.hevc")
     
     i=0
     while cap.isOpened():

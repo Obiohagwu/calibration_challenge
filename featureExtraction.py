@@ -1,5 +1,6 @@
 import time 
 import cv2 
+import numpy as np
 
 # We use this script to extract fictures from the feed..
 # These features are extracted by decomposing the feed img into a grid, then applying extraction to those
@@ -12,16 +13,6 @@ class FeatureExtractor(object):
 
     def extract_feature(self, img):
 
-        # decompose view into grid. Then run detect on it
-        view_y = img.shape[0]//self.GRID_Y
-        view_x = img.shape[1]//self.GRID_X
-        intermediate = []
-
-        for dy in range(0, img.shape[0], view_y):
-            for dx in range(0, img.shape[1], view_x):
-                img_chunk = img[dy: dy+view_y, dx: dx+view_x]
-                kp = self.orb.detect(img_chunk, None)
-                for p in kp:
-                    p.pt = (p.pt[0]+ dx, p.pt[1] + dy)
-                    intermediate.append(p)
-        return intermediate
+        features = cv2.goodFeaturesToTrack(np.mean(img, axis=2).astype(np.uint8), 3000, qualityLevel=0.01, minDistance=3)
+        print(features)
+        return features
