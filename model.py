@@ -37,7 +37,7 @@ def process_frame(img):
 
 
    
-    display.make(img)
+     display.make(img)
 #    log_events = sdl2.ext.get_events()
 #    for event in log_events:
 #        if event.type == sdl2.SDL_QUIT:
@@ -57,7 +57,7 @@ def test():
     print("Testing")
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("unlabeled/8.hevc")
+    cap = cv2.VideoCapture("unlabeled/7.hevc")
     
     i=0
     while cap.isOpened():
