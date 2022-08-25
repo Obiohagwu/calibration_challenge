@@ -5,9 +5,9 @@ import time
 import os
 
 # To get video pop-up
-#import sys
-#import sdl2.ext
-#sdl2.ext.init()
+import sys
+import sdl2.ext
+sdl2.ext.init()
 
 # Let's try some stuff
 # This calibratoin challenge seem to me like a canonical SLAM type problem
@@ -29,15 +29,18 @@ feature_extractor = FeatureExtractor()
 
 def process_frame(img):
     img = cv2.resize(img,(W,H))
-    kp = feature_extractor.extract_feature(img)
-    for p in kp:
-        u,v = map(lambda x: int(round(x)), p[0])
-        cv2.circle(img, (u,v), color=(0,255,0), radius=3)
+    matches = feature_extractor.extract_feature(img)
+   
+    for pt1, pt2 in matches:
+        u1,v1 = map(lambda x: int(round(x)), pt1.pt)
+        u2, v2 = map(lambda x: int(round(x)), pt2.pt)
+        cv2.circle(img, (u1,v1), color=(0,255,0), radius=3)
+        cv2.line(img, (u1, v1), (u2, v2), color=(255, 0, 0))
 
 
 
    
-     display.make(img)
+    display.make(img)
 #    log_events = sdl2.ext.get_events()
 #    for event in log_events:
 #        if event.type == sdl2.SDL_QUIT:
@@ -57,7 +60,7 @@ def test():
     print("Testing")
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("unlabeled/7.hevc")
+    cap = cv2.VideoCapture("unlabeled/9.hevc")
     
     i=0
     while cap.isOpened():
