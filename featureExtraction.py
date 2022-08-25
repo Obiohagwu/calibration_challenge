@@ -31,7 +31,10 @@ class FeatureExtractor(object):
             #print(matches)
             for m,n in matches:
                 if m.distance < 0.75*n.distance:
-                    intern.append((kps[m.queryIdx], self.end['kps'][m.trainIdx]))
+                    kp1 = kps[m.queryIdx].pt
+                    kp2 = self.end['kps'][m.trainIdx].pt
+                    intern.append((kp1, kp2))
+                    
 
         
         self.end = {'kps': kps, 'des': des}
