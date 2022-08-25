@@ -1,6 +1,10 @@
 import time 
 import cv2 
 import numpy as np
+from skimage.measure import ransac
+from skimage.transform import FundamentalMatrixTransform
+
+
 
 # We use this script to extract fictures from the feed..
 # These features are extracted by decomposing the feed img into a grid, then applying extraction to those
@@ -35,11 +39,22 @@ class FeatureExtractor(object):
                     kp2 = self.end['kps'][m.trainIdx].pt
                     intern.append((kp1, kp2))
                     
+        # Fundamental matrix filter governs how points correspond to each other in euclidean 3d space
+        # Wiki -  FMF is a 3*3 matrrix which relates points in stero images
+        # We use ransac estimator to stay within bounds of FMF eqn
+        if len(intern)>0:
+            intern = np.array(intern)
+            model, inliners = ransac((intern[:, 0], intern[:, 1]), FundamentalMatrixTransform, min_samples=8, residual_threshold=1, max_trials=100)
+            
 
-        
+
+
+            intern = intern[inliners]
         self.end = {'kps': kps, 'des': des}
 
         #print(features)
         #return kps, des, matches
+
+        
         return intern
         #return features

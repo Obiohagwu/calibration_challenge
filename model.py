@@ -30,7 +30,8 @@ feature_extractor = FeatureExtractor()
 def process_frame(img):
     img = cv2.resize(img,(W,H))
     matches = feature_extractor.extract_feature(img)
-   
+    
+    print("%d matches found! " % (len(matches)))
     for pt1, pt2 in matches:
         u1,v1 = map(lambda x: int(round(x)), pt1)
         u2, v2 = map(lambda x: int(round(x)), pt2)
@@ -60,7 +61,7 @@ def test():
     print("Testing")
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("unlabeled/9.hevc")
+    cap = cv2.VideoCapture("unlabeled/8.hevc")
     
     i=0
     while cap.isOpened():
