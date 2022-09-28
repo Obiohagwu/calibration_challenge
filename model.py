@@ -42,18 +42,18 @@ def process_frame(img):
 
    
     display.make(img)
-#    log_events = sdl2.ext.get_events()
-#    for event in log_events:
-#        if event.type == sdl2.SDL_QUIT:
-#            exit(0)
-#    print(dir(window))
-#    surf = sdl2.ext.pixels2d(window.get_surface())
-#    surf[:] = img.swapaxes(0,1)[:, :, 0]
-#    window.refresh()
+    #log_events = sdl2.ext.get_events()
+    #for event in log_events:
+    #    if event.type == sdl2.SDL_QUIT:
+    #        exit(0)
+    #print(dir(window))
+    #surf = sdl2.ext.pixels2d(window.get_surface())
+    #surf[:] = img.swapaxes(0,1)[:, :, 0]
+    #window.refresh()
     #cv2.imshow('FEED', img)
     #cv2.waitKey(0)
-    #print(img.shape)
-    #print(img)
+    print(img.shape)
+    print(img)
     
 
 
